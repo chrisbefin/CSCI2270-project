@@ -3,9 +3,9 @@
 #include <string>
 
 struct node {
-  *node parent;
-  *node leftChild;
-  *node rightChild;
+  node *parent;
+  node *leftChild;
+  node *rightChild;
   string word;
   int score;
 };
