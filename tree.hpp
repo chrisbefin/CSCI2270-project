@@ -9,3 +9,7 @@ struct node {
   string word;
   int score;
 };
+
+class tree {
+
+}
