@@ -11,5 +11,13 @@ struct node {
 };
 
 class tree {
-
+  public:
+    tree();
+    ~tree();
+    void addNode(string word, int score);
+    void deleteNode(string word);
+    node* search(string tiles, int score)
+    void rebalance();
+  private:
+    node* root;
 }
