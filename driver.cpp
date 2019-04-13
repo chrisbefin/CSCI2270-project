@@ -89,22 +89,22 @@ int main()
             words[9].addWord(score, word);
             break;
             case 10:
-            word[10].addWord(score, word);
+            words[10].addWord(score, word);
             break;
             case 11:
-            word[11].addWord(score, word);
+            words[11].addWord(score, word);
             break;
             case 12:
-            word[12].addWord(score, word);
+            words[12].addWord(score, word);
             break;
             case 13:
-            word[13].addWord(score, word);
+            words[13].addWord(score, word);
             break;
             case 14:
-            word[14].addWord(score, word);
+            words[14].addWord(score, word);
             break;
             case 15:
-            word[15].addWord(score, word);
+            words[15].addWord(score, word);
             break;
         }
     }
