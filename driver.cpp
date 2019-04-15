@@ -7,7 +7,6 @@ using namespace std;
 int main(){
   cout << "Hi welcome to scrabble helper." << endl;
   string userInput;
-  string upperCaseTile;
   while(!false){
     cout << "Please enter the 7 letters that you have" << endl;
     cin >> userInput;
