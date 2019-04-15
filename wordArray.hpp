@@ -4,6 +4,7 @@
 using namespace std;
 
 struct node {
+
   node* next=NULL;
   string word;
 };
@@ -19,4 +20,5 @@ class wordArray {
     node* searchTiles(int score, string tiles);
     void print();
 };
+  
 #endif
