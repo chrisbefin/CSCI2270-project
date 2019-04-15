@@ -24,8 +24,32 @@ number of words by length
 14 letters- 9312
 15 letters- 5877
 
+
+  return 0;
 max score - 47 points
 */
+int main(){
+  cout << "Hi welcome to scrabble helper." << endl;
+  string userInput;
+  while(!false){
+    cout << "Please enter the 7 letters that you have" << endl;
+    cin >> userInput;
+    cout << "You inputed: " << userInput << endl;
+    cout << "Are this you tiles? Press Y for yes and N for no." << endl;
+    char choose;
+    cin >> choose;
+    while(!false){
+      if(choose == 'y' || choose == 'Y'){
+        break;
+      }else if(choose == 'n' || choose == 'N'){
+        break;
+      }else{
+        cout << "That is not a valid input. Please enter a valid input." << endl;
+        cin >> choose;
+      }
+    }
+    break;
+  }
 int calcScore(string word)
 {
     int sum = 0;
@@ -109,4 +133,3 @@ int main()
         }
     }
     return 0;
-}
