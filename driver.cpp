@@ -52,7 +52,7 @@ int calcScore(string word)
 }
 
 int main(){
-   ifstream myStream("ScrabbleDict.txt");
+    ifstream myStream("ScrabbleDict.txt");
     wordArray words[15];//array of objects
     string word;
     int length;
@@ -64,72 +64,85 @@ int main(){
         switch(length)
         {
             case 1:
-            words[1].addWord(score, word);
+            words[0].addWord(score, word);
             break;
             case 2:
-            words[2].addWord(score, word);
+            words[1].addWord(score, word);
             break;
             case 3:
-            words[3].addWord(score, word);
+            words[2].addWord(score, word);
             break;
             case 4:
-            words[4].addWord(score, word);
+            words[3].addWord(score, word);
             break;
             case 5:
-            words[5].addWord(score, word);
+            words[4].addWord(score, word);
             break;
             case 6:
-            words[6].addWord(score, word);
+            words[5].addWord(score, word);
             break;
             case 7:
-            words[7].addWord(score, word);
+            words[6].addWord(score, word);
             break;
             case 8:
-            words[8].addWord(score, word);
+            words[7].addWord(score, word);
             break;
             case 9:
-            words[9].addWord(score, word);
+            words[8].addWord(score, word);
             break;
             case 10:
-            words[10].addWord(score, word);
+            words[9].addWord(score, word);
             break;
             case 11:
-            words[11].addWord(score, word);
+            words[10].addWord(score, word);
             break;
             case 12:
-            words[12].addWord(score, word);
+            words[11].addWord(score, word);
             break;
             case 13:
-            words[13].addWord(score, word);
+            words[12].addWord(score, word);
             break;
             case 14:
-            words[14].addWord(score, word);
+            words[13].addWord(score, word);
             break;
             case 15:
-            words[15].addWord(score, word);
+            words[14].addWord(score, word);
             break;
         }
     }
-  cout << "Hi welcome to scrabble helper." << endl;
-  string userInput;
-  while(!false){
-    cout << "Please enter the 7 letters that you have" << endl;
-    cin >> userInput;
-    cout << "You inputed: " << userInput << endl;
-    cout << "Are this you tiles? Press Y for yes and N for no." << endl;
-    char choose;
-    cin >> choose;
-    while(!false){
-      if(choose == 'y' || choose == 'Y'){
-        break;
-      }else if(choose == 'n' || choose == 'N'){
-        break;
-      }else{
-        cout << "That is not a valid input. Please enter a valid input." << endl;
-        cin >> choose;
-      }
-    }
-    break;
+//   cout << "Hi welcome to scrabble helper." << endl;
+//   string userInput;
+//   while(!false){
+//     cout << "Please enter the 7 letters that you have" << endl;
+//     cin >> userInput;
+//     cout << "You inputed: " << userInput << endl;
+//     cout << "Are this you tiles? Press Y for yes and N for no." << endl;
+//     char choose;
+//     cin >> choose;
+//     while(!false){
+//       if(choose == 'y' || choose == 'Y'){
+//         break;
+//       }else if(choose == 'n' || choose == 'N'){
+//         break;
+//       }else{
+//         cout << "That is not a valid input. Please enter a valid input." << endl;
+//         cin >> choose;
+//       }
+//     }
+//     break;
+//   }
+  string tiles = "ZZZ";
+  int resultScore = 30;
+  node* temp;
+  temp = words[2].searchTiles(resultScore, tiles);
+  if(temp != nullptr)
+  {
+      cout << temp -> word << endl;
   }
-
-   
+  else {
+      cout << "fail"<< endl;
+  }
+  //words[2].print();
+  return 0;
+  
+}
