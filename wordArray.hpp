@@ -14,8 +14,8 @@ class wordArray {
     node** array;
     int size;
   public:
-    wordArray(int length);
-    ~wordArray();
+    wordArray();
+    //~wordArray();
     void addWord(int score,string word);
     node* searchTiles(int score, string tiles);
     void print();
