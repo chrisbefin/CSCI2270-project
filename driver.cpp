@@ -55,6 +55,7 @@ void dispLayMenu(){
   cout << "1. Enter new tiles" << endl;
   cout << "2. Get best word (no multipliers)" << endl;
   cout << "3. Check if word is valid" << endl;
+  cout << "4. Play off of other tiles" << endl;
   cout << "5. Quit" << endl;
 }
 
@@ -198,7 +199,7 @@ int main(){
         case 2: {
           node *pres = words[5].searchTiles(score,newUserTile);
           if (pres == NULL) {
-            cout << "Fail" << endl << endl;
+            cout << "no word found" << endl << endl;
           }
           else {
             cout<< pres->word << " is the best word you can play" << endl << endl;
@@ -207,6 +208,7 @@ int main(){
         }
         case 3: {
           string input;
+          cout << "Enter a word" << endl;
           getline(cin, input);
           input = UpperCaseName(input);
           cout << input;
@@ -218,6 +220,30 @@ int main(){
           }
           cout << endl;
           break;
+        }
+        case 4: {
+            string playTiles;
+            string totalTiles;
+            node* temp;
+            cout << "Enter all tiles that you can play off of as a single string of characters:" << endl;
+            getline(cin, playTiles);
+            playTiles = UpperCaseName(playTiles);
+            for(int i = 0; i < playTiles.length(); i++)
+            {
+                totalTiles = playTiles[i] + newUserTile;
+                temp = words[6].searchTiles(calcScore(totalTiles), totalTiles);
+                if(temp != nullptr)
+                {
+                    cout << "word that can be played off of: " << playTiles[i] << endl;
+                    cout << temp -> word << endl;
+                    
+                }
+                else
+                {
+                    cout << "no word can be made with your tiles playing off of: " << playTiles[i] << endl;
+                }
+            }
+            break;  
         }
         case 5:
           cout << "Goodbye! " << endl << endl;
