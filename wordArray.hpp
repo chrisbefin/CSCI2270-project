@@ -12,13 +12,15 @@ struct node {
 class wordArray {
   private:
     node** array;
-    int size;
+    long int size;
+    unsigned int getHash(string);
   public:
-    wordArray();
-    //~wordArray();
+    wordArray(long int);
+    ~wordArray();
+    bool searchWord(int,string);
     void addWord(int score,string word);
     node* searchTiles(int score, string tiles);
     void print();
 };
-  
+
 #endif
