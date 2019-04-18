@@ -171,7 +171,7 @@ int main(){
     }
   }
   score = calcScore(newUserTile);
-  cout << "You have entered this 7 letters: " << newUserTile << endl << endl;
+  cout << "You have entered these 7 letters: " << newUserTile << endl << endl;
   while(userChoose != "5"){
     dispLayMenu();
     getline(cin, userChoose);
