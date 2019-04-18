@@ -1,6 +1,7 @@
 #include "wordArray.hpp"
 #include <iostream>
-
+#include <string>
+#include <algorithm>
 using namespace std;
 
 bool hasTiles(string tiles, string word) { //helper function that tells if the tiles can form the word // works
@@ -24,40 +25,41 @@ bool hasTiles(string tiles, string word) { //helper function that tells if the t
   return true;
 }
 
-wordArray::wordArray() {
-  size=47;
+wordArray::wordArray(long int usize) { //new
+  size = usize;
   array= new node*[size];
   for (int i=0; i < size;i++) {
     array[i] = NULL;
   }
 }
 
-// wordArray::~wordArray() {
-//   node *pres;
-//   node *next;
-//   for (int i=0;i<size;i++) {
-//     if (array[i]!= NULL) {
-//       pres = array[i];
-//       while (pres != NULL) {
-//         next = pres->next;
-//         delete pres;
-//         pres = next;
-//       }
-//       array[i]=NULL;
-//     }
-//   }
-//   delete[] array;
-// }
+wordArray::~wordArray() {
+  node *pres;
+  node *next;
+  for (int i=0;i<size;i++) {
+    if (array[i]!= NULL) {
+      pres = array[i];
+      while (pres != NULL) {
+        next = pres->next;
+        delete pres;
+        pres = next;
+      }
+      array[i]=NULL;
+    }
+  }
+}
 
-void wordArray::addWord(int score,string word) {
+void wordArray::addWord(int score, string word) { //new way
   node *nn = new node;
   nn->word=word;
-  if (array[score-1]==NULL) { //if there is no header to the linked list
-    array[score-1] = nn;
+  sort(word.begin(),word.end());
+  unsigned int index = getHash(word);
+  if (array[index]==NULL) { //if there is no header to the linked list
+    array[index] = nn;
   }
   else {
     node *pres;
-    pres = array[score-1];
+    pres = array[index];
     while (pres->next != NULL) {
       pres = pres->next;
     }
@@ -66,7 +68,10 @@ void wordArray::addWord(int score,string word) {
 }
 
 node* wordArray::searchTiles(int score, string tiles) {
-  node *pres = array[score-1];
+  string word = tiles;
+  sort(word.begin(),word.end());
+  int index = getHash(word);
+  node *pres = array[index];
   while (pres != NULL) {
     if (hasTiles(tiles, pres->word)) {
       return pres;
@@ -83,13 +88,16 @@ void wordArray::print() {
     while (pres!=NULL) {
       cout << pres-> word << endl;
       pres = pres->next;
-      
+
     }
   }
 }
 bool wordArray::searchWord(int score, string word)
 {
-  node* pres = array[score - 1];
+  string sorted = word;
+  sort(sorted.begin(),sorted.end());
+  unsigned int index = getHash(sorted);
+  node* pres = array[index];
   while(pres != nullptr)
   {
     if(pres -> word == word)
@@ -97,4 +105,15 @@ bool wordArray::searchWord(int score, string word)
     pres = pres -> next;
   }
   return false;
+}
+
+unsigned int wordArray::getHash(std::string word) { //doesnt work for abiogenitacally
+  unsigned int hashValue = 5381;
+  int length = word.length();
+  for (int i=0;i<length;i++)
+    {
+    hashValue=((hashValue<<5)+hashValue) + word[i];
+    }
+  hashValue %= size;
+  return hashValue;
 }
