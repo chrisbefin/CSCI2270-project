@@ -25,6 +25,20 @@ bool hasTiles(string tiles, string word) { //helper function that tells if the t
   return true;
 }
 
+bool hasWord(string word, string fullword) {
+  cout << "fullword is " << fullword << endl;
+  cout << "must have is " << word << endl;
+  int length = word.length();
+  for (int i=0; i < fullword.length()-length;i++) {
+    if (word == fullword.substr(i,length)) {
+      cout << "true" << endl << endl;
+      return true;
+    }
+  }
+  cout << "false" << endl << endl;
+  return false;
+}
+
 wordArray::wordArray(long int usize) { //new
   size = usize;
   array= new node*[size];
@@ -74,6 +88,20 @@ node* wordArray::searchTiles(int score, string tiles) {
   node *pres = array[index];
   while (pres != NULL) {
     if (hasTiles(tiles, pres->word)) {
+      return pres;
+    }
+    pres=pres->next;
+  }
+  return NULL;
+}
+
+node* wordArray::searchTilesWord(int score, string tiles, string inword) {
+  string word = tiles;
+  sort(word.begin(),word.end());
+  int index = getHash(word);
+  node *pres = array[index];
+  while (pres != NULL) {
+    if (hasTiles(tiles, pres->word) && hasWord(inword,pres->word)) {
       return pres;
     }
     pres=pres->next;
