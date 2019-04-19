@@ -26,16 +26,16 @@ bool hasTiles(string tiles, string word) { //helper function that tells if the t
 }
 
 bool hasWord(string word, string fullword) {
-  cout << "fullword is " << fullword << endl;
-  cout << "must have is " << word << endl;
+  //cout << "fullword is " << fullword << endl;
+  //cout << "must have is " << word << endl;
   int length = word.length();
-  for (int i=0; i < fullword.length()-length;i++) {
+  for (int i=0; i <=fullword.length()-length;i++) {
     if (word == fullword.substr(i,length)) {
-      cout << "true" << endl << endl;
+      //cout << "true" << endl << endl;
       return true;
     }
   }
-  cout << "false" << endl << endl;
+  //cout << "false" << endl << endl;
   return false;
 }
 
