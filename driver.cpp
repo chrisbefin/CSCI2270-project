@@ -143,6 +143,7 @@ int main(){
     string introline;
     while(getline(introStream, introline))
       cout << introline << endl;
+  cout << endl;
     ifstream myStream("ScrabbleDict.txt");
     vector<wordArray> words;
     long int sizes[] = {124,1341,5625,12917,22938,34167,41882,42290,36593,28617,20775,14185,9312,5877};
