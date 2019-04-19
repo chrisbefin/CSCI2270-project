@@ -88,6 +88,45 @@ int checkString(string word){
   return counter;
 }
 
+template <typename Iterator>
+bool next_combination(const Iterator first, Iterator k, const Iterator last)
+{
+   /* Credits: Mark Nelson http://marknelson.us */
+   if ((first == last) || (first == k) || (last == k))
+      return false;
+   Iterator i1 = first;
+   Iterator i2 = last;
+   ++i1;
+   if (last == i1)
+      return false;
+   i1 = last;
+   --i1;
+   i1 = k;
+   --i2;
+   while (first != i1)
+   {
+      if (*--i1 < *i2)
+      {
+         Iterator j = k;
+         while (!(*i1 < *j)) ++j;
+         std::iter_swap(i1,j);
+         ++i1;
+         ++j;
+         i2 = k;
+         std::rotate(i1,j,last);
+         while (last != j)
+         {
+            ++j;
+            ++i2;
+         }
+         std::rotate(k,i2,last);
+         return true;
+      }
+   }
+   std::rotate(first,k,last);
+   return false;
+}
+
 int main(){
     ifstream myStream("ScrabbleDict.txt");
     vector<wordArray> words;
@@ -171,7 +210,7 @@ int main(){
     }
   }
   score = calcScore(newUserTile);
-  cout << "You have entered these 7 letters: " << newUserTile << endl << endl;
+  cout << "You have entered this 7 letters: " << newUserTile << endl << endl;
   while(userChoose != "5"){
     dispLayMenu();
     getline(cin, userChoose);
@@ -198,8 +237,31 @@ int main(){
           break;
         case 2: {
           node *pres = words[5].searchTiles(score,newUserTile);
+          node *max = NULL;
+          int length = newUserTile.length();
+          char letters[length];
           if (pres == NULL) {
-            cout << "no word found" << endl << endl;
+            string search;
+            for (int i=2; i<newUserTile.length();i++) {
+              do
+              {
+                  search = std::string(newUserTile.begin(), newUserTile.begin() + i);
+                  pres = words[search.length()-2].searchTiles(calcScore(search),search);
+                  if (max == NULL && pres!=NULL) {
+                    max = pres;
+                  }
+                  if (pres!=NULL&&calcScore(search)>calcScore(max->word)) {
+                    max = pres;
+                  }
+
+              } while (next_combination(newUserTile.begin(), newUserTile.begin() + i, newUserTile.end()));
+            }
+            if (max == NULL) {
+              cout << "There are no possible combimations" << endl << endl;
+            }
+            else {
+              cout << max->word << " is the best word you can play" << endl << endl;
+            }
           }
           else {
             cout<< pres->word << " is the best word you can play" << endl << endl;
@@ -208,7 +270,6 @@ int main(){
         }
         case 3: {
           string input;
-          cout << "Enter a word" << endl;
           getline(cin, input);
           input = UpperCaseName(input);
           cout << input;
@@ -236,14 +297,14 @@ int main(){
                 {
                     cout << "word that can be played off of: " << playTiles[i] << endl;
                     cout << temp -> word << endl;
-                    
+
                 }
                 else
                 {
                     cout << "no word can be made with your tiles playing off of: " << playTiles[i] << endl;
                 }
             }
-            break;  
+            break;
         }
         case 5:
           cout << "Goodbye! " << endl << endl;
