@@ -20,6 +20,7 @@ class wordArray {
     bool searchWord(int,string);
     void addWord(int score,string word);
     node* searchTiles(int score, string tiles);
+    node* searchTilesWord(int score, string tiles, string word);
     void print();
 };
 
