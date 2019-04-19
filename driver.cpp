@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 #include "wordArray.hpp"
 
 using namespace std;
@@ -56,7 +57,8 @@ void dispLayMenu(){
   cout << "2. Get best word (no multipliers)" << endl;
   cout << "3. Check if word is valid" << endl;
   cout << "4. Play off of other tiles" << endl;
-  cout << "5. Quit" << endl;
+  cout << "5. Play off of another word" << endl;
+  cout << "6. Quit" << endl;
 }
 
 string UpperCaseName(string name){
@@ -211,7 +213,7 @@ int main(){
   }
   score = calcScore(newUserTile);
   cout << "You have entered this 7 letters: " << newUserTile << endl << endl;
-  while(userChoose != "5"){
+  while(userChoose != "6"){
     dispLayMenu();
     getline(cin, userChoose);
     cout << endl;
@@ -306,7 +308,40 @@ int main(){
             }
             break;
         }
-        case 5:
+        case 5: {
+            cout << "Enter the word you would like to play off of: " << endl;
+            string playWord;
+            string allTiles;
+            node *pres= NULL;
+            node *max=NULL;
+            string search;
+            getline(cin, playWord);
+            playWord = UpperCaseName(playWord);
+            allTiles = playWord + newUserTile;
+            for (int i=1; i<newUserTile.length();i++) {
+              do
+              {
+                  search = std::string(newUserTile.begin(), newUserTile.begin() + i);
+                  allTiles = playWord + search;
+                  pres = words[allTiles.length()-2].searchTilesWord(calcScore(allTiles),allTiles,playWord);
+                  if (max == NULL && pres!=NULL) {
+                    max = pres;
+                  }
+                  if (pres!=NULL&&calcScore(allTiles)>calcScore(max->word)) {
+                    max = pres;
+                  }
+
+              } while (next_combination(newUserTile.begin(), newUserTile.begin() + i, newUserTile.end()));
+            }
+            if (max == NULL) {
+              cout << "There are no possible combimations" << endl << endl;
+            }
+            else {
+              cout << max->word << " is the best word you can play" << endl << endl;
+            }
+            break;
+        }
+        case 6:
           cout << "Goodbye! " << endl << endl;
           return 0;
           break;
