@@ -28,6 +28,15 @@ number of words by length
   return 0;
 max score - 47 points
 */
+bool hasCharacter(string word, char c)
+{
+  for(int i = 0; i < word.length(); i++)
+  {
+    if(word[i] == c)
+      return true;
+  }
+  return false;
+}
 int calcScore(string word)
 {
     int sum = 0;
@@ -54,10 +63,10 @@ int calcScore(string word)
 void dispLayMenu(){
   cout << "======Main Menu======" << endl;
   cout << "1. Enter new tiles" << endl;
-  cout << "2. Get best word (no multipliers)" << endl;
+  cout << "2. Get best word" << endl;
   cout << "3. Check if word is valid" << endl;
-  cout << "4. Play off of other tiles" << endl;
-  cout << "5. Play off of another word" << endl;
+  cout << "4. Play off of other tiles(perpendicular)" << endl;
+  cout << "5. Play off of another word(parallel)" << endl;
   cout << "6. Quit" << endl;
 }
 
@@ -130,6 +139,10 @@ bool next_combination(const Iterator first, Iterator k, const Iterator last)
 }
 
 int main(){
+    ifstream introStream("intro.txt");
+    string introline;
+    while(getline(introStream, introline))
+      cout << introline << endl;
     ifstream myStream("ScrabbleDict.txt");
     vector<wordArray> words;
     long int sizes[] = {124,1341,5625,12917,22938,34167,41882,42290,36593,28617,20775,14185,9312,5877};
@@ -197,8 +210,8 @@ int main(){
   string userTile;
   string read;
   string newUserTile;
-  cout << "Hi welcome to Scrabble Helper" << endl;
-  cout << "Please enter the 7 letters" << endl;
+  cout << "Hi! Welcome to Scrabble Helper" << endl;
+  cout << "Please enter your 7 tiles" << endl;
   getline(cin, userTile);
   newUserTile = UpperCaseName(userTile);
   if(checkString(newUserTile) != 7){
@@ -213,7 +226,7 @@ int main(){
   }
   score = calcScore(newUserTile);
   cout << "You have entered this 7 letters: " << newUserTile << endl << endl;
-  while(userChoose != "6"){
+  while(userChoose != "5"){
     dispLayMenu();
     getline(cin, userChoose);
     cout << endl;
@@ -272,14 +285,15 @@ int main(){
         }
         case 3: {
           string input;
+          cout << "Enter the word you would like to check:" << endl;
           getline(cin, input);
           input = UpperCaseName(input);
           cout << input;
           if (words[input.length()-2].searchWord(calcScore(input),input)) {
-            cout <<" is valid" << endl;
+            cout <<" is a valid word" << endl;
           }
           else {
-            cout << " is not valid" << endl;
+            cout << " is not a valid word" << endl;
           }
           cout << endl;
           break;
@@ -287,25 +301,51 @@ int main(){
         case 4: {
             string playTiles;
             string totalTiles;
+            string substring;
             node* temp;
             cout << "Enter all tiles that you can play off of as a single string of characters:" << endl;
             getline(cin, playTiles);
             playTiles = UpperCaseName(playTiles);
-            for(int i = 0; i < playTiles.length(); i++)
+            for(int x = 0; x < playTiles.length(); x++)
             {
-                totalTiles = playTiles[i] + newUserTile;
-                temp = words[6].searchTiles(calcScore(totalTiles), totalTiles);
-                if(temp != nullptr)
-                {
-                    cout << "word that can be played off of: " << playTiles[i] << endl;
-                    cout << temp -> word << endl;
-
+              cout << "Playing off of the letter " << playTiles[x] << ":" << endl;
+              totalTiles = playTiles[x] + newUserTile;
+              score = calcScore(totalTiles);
+              node *pres = NULL;
+              node *max = NULL;
+              int length = totalTiles.length();
+              char letters[length];
+              if (pres == NULL) {
+                string search;
+                for (int i=2; i<totalTiles.length();i++) {
+                  do
+                  {
+                      search = std::string(newUserTile.begin(), newUserTile.begin() + i);
+                      totalTiles = playTiles[x] + search;
+                      //cout << totalTiles << endl;
+                      substring = totalTiles.substr(0,1);
+                      pres = words[totalTiles.length() - 2].searchTilesWord(score,totalTiles, substring);
+                      if (max == NULL && pres!=NULL) {
+                        max = pres;
+                      }
+                      if (pres!=NULL&&calcScore(search)>calcScore(max->word)) {
+                          max = pres;
+                      }
+    
+                  } while (next_combination(newUserTile.begin(), newUserTile.begin() + i, newUserTile.end()));
                 }
-                else
-                {
-                    cout << "no word can be made with your tiles playing off of: " << playTiles[i] << endl;
+                
+                if (max == NULL) {
+                  cout << "There is no word to play with this letter." << endl << endl;
                 }
-            }
+                else {
+                  cout << max->word << " is the best word to play." << endl << endl;
+                }
+              }
+              else {
+                cout<< pres->word << " is the best word to play." << endl << endl;
+              }
+                }
             break;
         }
         case 5: {
@@ -349,8 +389,6 @@ int main(){
           cout << "That is not a valid input. Please enter a valid input." << endl;
           break;
         }
-      }else{
-        cout << "That is not a valid input. Please enter a valid input." << endl;
       }
     }
   return 0;
