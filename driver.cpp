@@ -300,6 +300,11 @@ int main(){
           cout << "Enter the word you would like to check:" << endl;
           getline(cin, input);
           input = UpperCaseName(input);
+          while (input.length() <2) {
+            cout << "Please enter only letters : ";
+            getline(cin, input);
+            input = UpperCaseName(input);
+          }
           cout << input;
           if (words[input.length()-2].searchWord(calcScore(input),input)) {
             cout <<" is a valid word" << endl;
@@ -318,6 +323,11 @@ int main(){
             cout << "Enter all tiles that you can play off of as a single string of characters:" << endl;
             getline(cin, playTiles);
             playTiles = UpperCaseName(playTiles);
+            while (playTiles.length()==0) {
+              cout << "Please enter only characters : ";
+              getline(cin, playTiles);
+              playTiles = UpperCaseName(playTiles);
+            }
             for(int x = 0; x < playTiles.length(); x++)
             {
               cout << "Playing off of the letter " << playTiles[x] << ":" << endl;
@@ -369,6 +379,11 @@ int main(){
             string search;
             getline(cin, playWord);
             playWord = UpperCaseName(playWord);
+            while (playWord.length()==0) {
+                cout << "Please enter only characters : ";
+                getline(cin, playWord);
+                playWord = UpperCaseName(playWord);
+              }
             allTiles = playWord + newUserTile;
             for (int i=1; i<newUserTile.length();i++) {
               do
