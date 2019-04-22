@@ -67,8 +67,8 @@ void dispLayMenu(){
   cout << "3. Check if word is valid" << endl;
   cout << "4. Play off of other tiles(perpendicular)" << endl;
   cout << "5. Play off of another word(parallel)" << endl;
-  cout << "6. Track player scores" << endl;
-  cout << "6. Quit" << endl;
+  cout << "6. Score tracker" << endl;
+  cout << "7. Quit" << endl;
 }
 
 string UpperCaseName(string name){
@@ -208,6 +208,16 @@ int main(){
         }
     }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //
+  bool game = false;
+  int score1 = 0;
+  int score2 = 0;
+  int score3 = 0;
+  int score4 = 0;// variables for case 6 which tracks player scores
+  string playerNames[4];
+  string playerChoice;
+  string earnedScore;
+  //
   string userChoose;
   string userTile;
   string read;
@@ -228,7 +238,7 @@ int main(){
   }
   score = calcScore(newUserTile);
   cout << "You have entered these 7 letters: " << newUserTile << endl << endl;
-  while(userChoose != "6"){
+  while(userChoose != "7"){
     dispLayMenu();
     getline(cin, userChoose);
     cout << endl;
@@ -383,17 +393,8 @@ int main(){
             }
             break;
         }
-        case 6:
-          {
-            bool game = false;
-            int score1 = 0;
-            int score2 = 0;
-            int score3 = 0;
-            int score4 = 0;
-            string playerNames[4];
-            string playerChoice;
-            string wordPlayed;
-            if(game == false)//user need to set up the game
+        case 6: {
+            if(game == false)
             {
                 for(int i = 0; i < 4; i++)
                 {
@@ -408,37 +409,31 @@ int main(){
                 cout << "1. " << playerNames[0] << endl;
                 cout << "2. " << playerNames[1] << endl;
                 cout << "3. " << playerNames[2] << endl;
-                cout << "4. " << playerNames[4] << endl;
+                cout << "4. " << playerNames[3] << endl;
                 getline(cin, playerChoice);
-                cout << "Which word was played?" << endl;
-                getline(cin, wordPlayed);
-                if(words[wordPlayed.length() - 2].searchWord() == true)
+                cout << "How many points did " << playerNames[stoi(playerChoice) - 1] << " earn?" << endl;
+                getline(cin, earnedScore);
+                switch(stoi(playerChoice))
                 {
-                    switch(stoi(playerChoice))
-                    {
-                        case 1: score1 += calcScore(wordPlayed);
-                            break;
-                        case 2: score2 += calcScore(wordPlayed);
-                            break;
-                        case 3: score3 += calcScore(wordPlayed);
-                            break;
-                        case 4: score4 += calcScore(wordPlayed);
-                            break;
-                    }
-                    cout << "Scoreboard" << endl;
+                  case 1: score1 += stoi(earnedScore);
+                      break;
+                  case 2: score2 += stoi(earnedScore);
+                      break;
+                  case 3: score3 += stoi(earnedScore);
+                      break;
+                  case 4: score4 += stoi(earnedScore);
+                      break;
+                }
+                    cout << endl << "Scoreboard" << endl;
                     cout << "----------" << endl;
                     cout << playerNames[0] << ": " << score1 << endl;
                     cout << playerNames[1] << ": " << score2 << endl;
                     cout << playerNames[2] << ": " << score3 << endl;
                     cout << playerNames[3] << ": " << score4 << endl;
-                }
-                else
-                {
-                    cout << "That word is not legal." << endl;
-                }
+                
             }
         }
-          break;
+        break;
         case 7:
           cout << "Goodbye! " << endl << endl;
           return 0;
