@@ -375,7 +375,7 @@ int main(){
               } while (next_combination(newUserTile.begin(), newUserTile.begin() + i, newUserTile.end()));
             }
             if (max == NULL) {
-              cout << "There are no possible combimations" << endl << endl;
+              cout << "There are no possible combinations" << endl << endl;
             }
             else {
               cout << max->word << " is the best word you can play" << endl << endl;
