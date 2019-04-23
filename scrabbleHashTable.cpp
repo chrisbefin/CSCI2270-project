@@ -1,4 +1,4 @@
-#include "wordArray.hpp"
+#include "scrabbleHashTable.hpp"
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -39,7 +39,7 @@ bool hasWord(string word, string fullword) {
   return false;
 }
 
-wordArray::wordArray(long int usize) { //new
+hashTable::hashTable(long int usize) { //new
   size = usize;
   array= new node*[size];
   for (int i=0; i < size;i++) {
@@ -47,7 +47,7 @@ wordArray::wordArray(long int usize) { //new
   }
 }
 
-wordArray::~wordArray() {
+hashTable::~hashTable() {
   node *pres;
   node *next;
   for (int i=0;i<size;i++) {
@@ -63,7 +63,7 @@ wordArray::~wordArray() {
   }
 }
 
-void wordArray::addWord(int score, string word) { //new way
+void hashTable::addWord(int score, string word) { //new way
   node *nn = new node;
   nn->word=word;
   sort(word.begin(),word.end());
@@ -81,7 +81,7 @@ void wordArray::addWord(int score, string word) { //new way
   }
 }
 
-node* wordArray::searchTiles(int score, string tiles) {
+node* hashTable::searchTiles(int score, string tiles) {
   string word = tiles;
   sort(word.begin(),word.end());
   int index = getHash(word);
@@ -95,7 +95,7 @@ node* wordArray::searchTiles(int score, string tiles) {
   return NULL;
 }
 
-node* wordArray::searchTilesWord(int score, string tiles, string inword) {
+node* hashTable::searchTilesWord(int score, string tiles, string inword) {
   string word = tiles;
   sort(word.begin(),word.end());
   int index = getHash(word);
@@ -109,7 +109,7 @@ node* wordArray::searchTilesWord(int score, string tiles, string inword) {
   return NULL;
 }
 
-void wordArray::print() {
+void hashTable::print() {
   for (int i=0; i<size;i++) {
     cout << "bucket : " << i << endl;
     node* pres = array[i];
@@ -120,7 +120,7 @@ void wordArray::print() {
     }
   }
 }
-bool wordArray::searchWord(int score, string word)
+bool hashTable::searchWord(int score, string word)
 {
   string sorted = word;
   sort(sorted.begin(),sorted.end());
@@ -135,7 +135,7 @@ bool wordArray::searchWord(int score, string word)
   return false;
 }
 
-unsigned int wordArray::getHash(std::string word) { //doesnt work for abiogenitacally
+unsigned int hashTable::getHash(std::string word) {
   unsigned int hashValue = 5381;
   int length = word.length();
   for (int i=0;i<length;i++)
