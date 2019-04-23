@@ -1,5 +1,5 @@
-#ifndef wordArray_HPP
-#define wordArray_HPP
+#ifndef scrabbleHashTable_HPP
+#define scrabbleHashTable_HPP
 #include <string>
 using namespace std;
 
@@ -9,14 +9,14 @@ struct node {
   string word;
 };
 
-class wordArray {
+class hashTable {
   private:
     node** array;
     long int size;
     unsigned int getHash(string);
   public:
-    wordArray(long int);
-    ~wordArray();
+    hashTable(long int);
+    ~hashTable();
     bool searchWord(int,string);
     void addWord(int score,string word);
     node* searchTiles(int score, string tiles);
