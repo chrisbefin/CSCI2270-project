@@ -353,10 +353,10 @@ int main(){
                       if (pres!=NULL&&calcScore(search)>calcScore(max->word)) {
                           max = pres;
                       }
-    
+
                   } while (next_combination(newUserTile.begin(), newUserTile.begin() + i, newUserTile.end()));
                 }
-                
+
                 if (max == NULL) {
                   cout << "There is no word to play with this letter." << endl << endl;
                 }
@@ -418,16 +418,51 @@ int main(){
                     game = true;
                 }
             }
-            else//game has already been set up 
+            else//game has already been set up
             {
-                cout << "Which player just put down a word?" << endl;
+                cout << "Which player just put down a word? (number)" << endl;
                 cout << "1. " << playerNames[0] << endl;
                 cout << "2. " << playerNames[1] << endl;
                 cout << "3. " << playerNames[2] << endl;
                 cout << "4. " << playerNames[3] << endl;
                 getline(cin, playerChoice);
+                while (true) {
+                  bool valid = true;
+                  for (int i=0; i<playerChoice.length();i++) {
+                    if (!('0'<=playerChoice[i] && '9'>=playerChoice[i])) {
+                      cout << "Enter a valid player number : ";
+                      getline(cin, playerChoice);
+                      valid = false;
+                      break;
+                    }
+                  }
+                  if (valid == true) {
+                    if (stoi(playerChoice)>=1 && stoi(playerChoice)<=4) {
+                      break;
+                    }
+                    else {
+                      cout << "Enter a valid player number : ";
+                      getline(cin, playerChoice);
+                      continue;
+                    }
+                  }
+                }
                 cout << "How many points did " << playerNames[stoi(playerChoice) - 1] << " earn?" << endl;
                 getline(cin, earnedScore);
+                while (true) {
+                  bool valid = true;
+                  for (int i=0; i<earnedScore.length();i++) {
+                    if (!('0'<=earnedScore[i] && '9'>=earnedScore[i])) {
+                      cout << "Enter a valid score :";
+                      getline(cin, earnedScore);
+                      valid = false;
+                      break;
+                    }
+                  }
+                  if (valid == true) {
+                    break;
+                  }
+                }
                 switch(stoi(playerChoice))
                 {
                   case 1: score1 += stoi(earnedScore);
@@ -445,7 +480,7 @@ int main(){
                     cout << playerNames[1] << ": " << score2 << endl;
                     cout << playerNames[2] << ": " << score3 << endl;
                     cout << playerNames[3] << ": " << score4 << endl;
-                
+
             }
         }
         break;
