@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include "wordArray.hpp"
+#include "scrabbleHashTable.hpp"
 
 using namespace std;
 /*
@@ -146,11 +146,11 @@ int main(){
       cout << introline << endl;
   cout << endl;
     ifstream myStream("ScrabbleDict.txt");
-    vector<wordArray> words;
+    vector<hashTable> words;
     long int sizes[] = {124,1341,5625,12917,22938,34167,41882,42290,36593,28617,20775,14185,9312,5877};
     //                   2 ,  3 ,  4 ,  5  ,  6  ,  7  ,  8  ,  9  , 10  , 11  , 12  , 13  , 14 , 15
     for (int i=0;i<14;i++) {
-      wordArray n(sizes[i]*1.3);
+      hashTable n(sizes[i]*1.3);
       words.push_back(n);
     }
     string word;
