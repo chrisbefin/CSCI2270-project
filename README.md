@@ -1,6 +1,6 @@
 # Scrabble-Helper
 
-Scrabble Helper is a group final project written in C++ and created for CSCI 2270- Data Structure during Spring 2019. The program is designed to help you
+Scrabble Helper is a group final project written in C++ and created for CSCI 2270- Data Structures during Spring 2019. The program is designed to help you
 get better at the popular board game Scrabble. You input the tiles available in your hand as well as the tiles already on the board and 
 it spits out the best possible word for you to play. This program also provides a convenient score counter to help you easily keep
 track of how many points each player has.
