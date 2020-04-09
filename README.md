@@ -9,9 +9,9 @@ value of the words hashed into the hash table located there.
 
 Files in this repository:
 
-Project Report (1).pdf  - An overview of the project along with some example output
-ScrabbleDict.txt        - The dictionary file that is read in to the program
-intro.txt               - This file is printed at the beginning of program execution
-driver.cpp              - Contains the program's main routine (reads in dict, gets player input, instantiates objects etc.)
-scrabbleHashTable.hpp   - The header file for the hash table class
-scrabbleHashTable.cpp   - the implementation for the hash table class
+Project Report (1).pdf  - An overview of the project along with some example output<br>
+ScrabbleDict.txt        - The dictionary file that is read in to the program<br>
+intro.txt               - This file is printed at the beginning of program execution<br>
+driver.cpp              - Contains the program's main routine (reads in dict, gets player input, instantiates objects etc.)<br>
+scrabbleHashTable.hpp   - The header file for the hash table class<br>
+scrabbleHashTable.cpp   - the implementation for the hash table class<br>
