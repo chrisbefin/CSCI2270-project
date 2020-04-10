@@ -7,7 +7,7 @@ track of how many points each player has.
 The underlying data structure for storing our dictionary is an array of hash tables, where each index of the array corresponds to the point
 value of the words hashed into the hash table located there.
 
-Files in this repository:
+<b>Files in this repository:</b>
 
 Project Report (1).pdf  - An overview of the project along with some example output<br>
 ScrabbleDict.txt        - The dictionary file that is read in to the program<br>
@@ -15,3 +15,6 @@ intro.txt               - This file is printed at the beginning of program execu
 driver.cpp              - Contains the program's main routine (reads in dict, gets player input, instantiates objects etc.)<br>
 scrabbleHashTable.hpp   - The header file for the hash table class<br>
 scrabbleHashTable.cpp   - the implementation for the hash table class<br>
+<br><br>
+<b>Compilation Command:</b>
+g++ scrabbleHashTable.cpp driver.cpp
